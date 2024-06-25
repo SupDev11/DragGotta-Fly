@@ -1,1 +1,0 @@
-reminder to put rename godot to .godot for the engine to register it.
