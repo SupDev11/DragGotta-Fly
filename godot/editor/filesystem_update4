@@ -1,0 +1,5 @@
+res://scenes/game.tscn
+res://scripts/collectable_scripts/collectable_coin.gd
+res://nodes/player.tscn
+res://nodes/coin.tscn
+res://nodes/particles/coin_collect_particle.tscn
