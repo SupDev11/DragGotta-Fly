@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dnljh6wlvisjy"]
+
+[node name="CoinCollectParticle" type="CPUParticles2D"]
+emitting = false
+amount = 10
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.65
+randomness = 0.15
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+angular_velocity_max = 58.18
+damping_min = 22.0
+damping_max = 22.0
+scale_amount_min = 2.7
+scale_amount_max = 2.7
+color = Color(0.905882, 0.905882, 0.905882, 1)

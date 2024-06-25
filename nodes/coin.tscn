@@ -1,0 +1,28 @@
+[gd_scene load_steps=8 format=3 uid="uid://kuexagvbysq7"]
+
+[ext_resource type="Script" path="res://scripts/collectable_scripts/collectable_coin.gd" id="1_rswfj"]
+[ext_resource type="PackedScene" uid="uid://dnljh6wlvisjy" path="res://nodes/particles/coin_collect_particle.tscn" id="2_8mq0y"]
+[ext_resource type="Texture2D" uid="uid://na8twmcowlkj" path="res://sprites/object_sprites/coin_sprite/coin_sprite_red.png" id="2_fk6oe"]
+[ext_resource type="Texture2D" uid="uid://c6jm1rf58x180" path="res://sprites/object_sprites/coin_sprite/coin_sprite_blue.png" id="3_8owug"]
+[ext_resource type="Texture2D" uid="uid://d8pek1iw3euw" path="res://sprites/object_sprites/coin_sprite/coin_sprite_green.png" id="4_l3ckc"]
+[ext_resource type="Texture2D" uid="uid://byaraob6tx6bw" path="res://sprites/object_sprites/coin_sprite/coin_sprite_yellow.png" id="5_la3uj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jb08"]
+size = Vector2(17, 14)
+
+[node name="Coin" type="Area2D" node_paths=PackedStringArray("coin_sprite")]
+script = ExtResource("1_rswfj")
+coin_sprite = NodePath("CoinSprite")
+coin_sprite_colors = Array[Texture2D]([ExtResource("3_8owug"), ExtResource("2_fk6oe"), ExtResource("4_l3ckc"), ExtResource("5_la3uj")])
+coin_sprite_texture_colors = Array[Color]([Color(0.184314, 0, 0.847059, 1), Color(0.835294, 0, 0, 1), Color(0.176471, 0.792157, 0, 1), Color(0.831373, 0.74902, 0, 1)])
+coin_collect_particle = ExtResource("2_8mq0y")
+
+[node name="CoinSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.03906, 1.00781)
+texture = ExtResource("3_8owug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_3jb08")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,192 @@
+[gd_scene load_steps=12 format=3 uid="uid://bp7rducdc3sy3"]
+
+[ext_resource type="Script" path="res://scripts/system_scripts/game_borders.gd" id="1_pbq2l"]
+[ext_resource type="PackedScene" uid="uid://ct61ck8k7g8bt" path="res://nodes/player.tscn" id="2_jpy4v"]
+[ext_resource type="PackedScene" uid="uid://kuexagvbysq7" path="res://nodes/coin.tscn" id="3_mtbxj"]
+[ext_resource type="FontFile" uid="uid://bjg4melme0c2v" path="res://fonts/Roboto-Regular.ttf" id="5_ggc3b"]
+[ext_resource type="Script" path="res://scripts/ui_scripts/ui_manager.gd" id="5_qbxbd"]
+[ext_resource type="Script" path="res://scripts/system_scripts/game_over.gd" id="6_0ayse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5deo"]
+size = Vector2(27, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62ehd"]
+size = Vector2(28.5, 231)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ax6l"]
+size = Vector2(446, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_voqjf"]
+size = Vector2(447, 23)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u50ao"]
+font_size = 20
+
+[node name="Game" type="Node2D"]
+
+[node name="Core" type="Node2D" parent="."]
+
+[node name="GameBorders" type="Area2D" parent="Core"]
+script = ExtResource("1_pbq2l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Core/GameBorders"]
+position = Vector2(-209, 1)
+shape = SubResource("RectangleShape2D_l5deo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Core/GameBorders"]
+position = Vector2(209.75, -0.5)
+shape = SubResource("RectangleShape2D_62ehd")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Core/GameBorders"]
+position = Vector2(0, -122)
+shape = SubResource("RectangleShape2D_2ax6l")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Core/GameBorders"]
+position = Vector2(0.5, 122)
+shape = SubResource("RectangleShape2D_voqjf")
+
+[node name="Coin Borders" type="Node2D" parent="Core/GameBorders"]
+
+[node name="Coin Pos Left" type="Node2D" parent="Core/GameBorders/Coin Borders"]
+position = Vector2(-189, -86)
+
+[node name="Coin Pos Right" type="Node2D" parent="Core/GameBorders/Coin Borders"]
+position = Vector2(187, 102)
+
+[node name="Camera2D" type="Camera2D" parent="Core"]
+zoom = Vector2(2.855, 3.265)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Player" parent="Objects" instance=ExtResource("2_jpy4v")]
+
+[node name="Coin" parent="Objects" node_paths=PackedStringArray("coin_border_left", "coin_border_right") instance=ExtResource("3_mtbxj")]
+position = Vector2(0, -45)
+coin_border_left = NodePath("../../Core/GameBorders/Coin Borders/Coin Pos Left")
+coin_border_right = NodePath("../../Core/GameBorders/Coin Borders/Coin Pos Right")
+
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("score_text")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -111.0
+offset_right = 225.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qbxbd")
+score_text = NodePath("ScoreText")
+
+[node name="ScoreText" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.5
+offset_right = 36.5
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_ggc3b")
+text = "SCORE : 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverUI" type="Panel" parent="UI" node_paths=PackedStringArray("restart_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_0ayse")
+restart_button = NodePath("Restart Button")
+
+[node name="Label" type="Label" parent="UI/GameOverUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 21.0
+offset_right = 55.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_ggc3b")
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_u50ao")
+
+[node name="Restart Button" type="Button" parent="UI/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = 14.0
+offset_right = 52.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ggc3b")
+text = "Restart"
+
+[node name="Quit Button" type="Button" parent="UI/GameOverUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = 53.0
+offset_right = 53.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_ggc3b")
+text = "Quit"
+
+[node name="VisualBorders" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BorderLeft" type="ColorRect" parent="UI/VisualBorders"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -6.0
+offset_right = 30.0
+offset_bottom = 6.0
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BorderRight" type="ColorRect" parent="UI/VisualBorders"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -117.5
+offset_right = 6.0
+offset_bottom = 115.5
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="Core/GameBorders" to="Core/GameBorders" method="_on_body_entered"]
+[connection signal="pressed" from="UI/GameOverUI/Restart Button" to="UI/GameOverUI" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UI/GameOverUI/Quit Button" to="UI/GameOverUI" method="_on_quit_button_pressed"]
